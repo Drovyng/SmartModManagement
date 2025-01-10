@@ -1,0 +1,19 @@
+This mod reworks a lot of TML ui stuff about mods.
+
+Please write about bugs!!!
+
+Supports 'Compact Mods'
+Supports 'Concise Mod List'
+
+What it changes:
+- Redesigned every button in ModList & ModPacksList & ModBrowser
+- Added new buttons in ModList ("Cancel", "Reveral in browser")
+- Added favourites in ModList
+- Redesigned ModPacksList layout
+- Redesigned ModList layout
+- You can view enabled mods in browser
+- Fixed Mod Translation icon text
+- You can click on "Dependencies" / "Translation" icon to view it in list
+- Resized Search Textbox
+- You can copy filtered Mod Browser to clipboard
+- You can paste mod list to Mod Browser from clipboard

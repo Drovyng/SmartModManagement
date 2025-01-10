@@ -1,0 +1,70 @@
+tModLoader: {
+	ModsOpenModsFolders: Папка
+	OpenModPackFolder: Папка
+	ModsForceReload: Перезагрузка
+	ModConfiguration: Конфиг
+	ModsEnableAll: Включить
+	ModsDisableAll: Выключить
+	ModsCancel: Отменить
+	ModsNoDisableSmartModManagement: SmartModManagement не будет выключен *конфиг*
+	ModPackViewList: Просмотр
+	ModPackViewModsInModBrowser: Браузер
+	ModPackEnableThisList: Включить
+	ModPackEnableOnlyThisList: Переключить
+	ModPackUpdateListWithEnabled: Обновить
+	InstallPackLocal: Импорт
+	RemovePackLocal: Убрать
+	ModPacksSaveEnabledAsNewPack: Создать Из Включённых
+	MenuManageMods: Управление модами *
+	ModsModPacks: Сборки модов *
+	ModsFavouriteAdd: Добавить в Избранное
+	ModsFavouriteRem: Убрать из Избранного
+	ModsCancelInfo:
+		'''
+		Эта кнопка отменяет любые изменения включения/выключения.
+		{0} Модов будут Включены
+		{1} Модов будут Выключены
+		'''
+	ModsViewInBrowserInfo:
+		'''
+		Показать включенные моды в Браузере.
+		Но локальные моды не будут в списке.
+		Также вы можете поделиться включенными модами
+		с другим человеком для скачивания.
+		'''
+	ClickToViewAllMods: Кликните для просмотра всех модов
+	MBClearSpecialFilter: Очистить фильтры
+	// ModClipboardCopy: Copy
+	// ModClipboardPaste: Paste
+	ModClipboardCopyInfo: Загружает отфилтрованные модификации в буфер обмена
+	ModClipboardPasteInfo: Устанавливает в фильтр модификации из буфера обмена
+	ModClipboardCopyInfoFail: Пожалуйста сперва отфильтруйте моды в СпискеМодов/Модпаках
+	MBReloadBrowser: Перезагрузить
+	MenuDownloadMods: Скачивание модов *
+	NoFiltersInfo: Нет Фильтров
+}
+
+Mods: {
+	SmartModManagement: {
+		Configs: {
+			SmartModManagementConfig: {
+				DisplayName: Конфиг
+
+				Favourites: {
+					Label: Избранные
+					// Tooltip: ""
+				}
+
+				DoNotDisableByGlobalButton: {
+					Label: Не Выключать Глобальной Кнопкой
+					// Tooltip: ""
+				}
+
+				FavouriteMods: {
+					Label: Моды в Избранном
+					// Tooltip: ""
+				}
+			}
+		}
+	}
+}

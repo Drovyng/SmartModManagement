@@ -1,0 +1,70 @@
+tModLoader: {
+	ModsOpenModsFolders: Folder
+	OpenModPackFolder: Folder
+	ModsForceReload: Reload
+	ModConfiguration: Config
+	ModsEnableAll: Enable
+	ModsDisableAll: Disable
+	ModsCancel: Cancel
+	ModsNoDisableSmartModManagement: SmartModManagement will not be disabled *config*
+	ModPackViewList: View
+	ModPackViewModsInModBrowser: Browser
+	ModPackEnableThisList: Enable
+	ModPackEnableOnlyThisList: Toggle
+	ModPackUpdateListWithEnabled: Update
+	InstallPackLocal: Import
+	RemovePackLocal: Remove
+	ModPacksSaveEnabledAsNewPack: Create From Enabled
+	MenuManageMods: Manage Mods *
+	ModsModPacks: Mod Packs *
+	ModsFavouriteAdd: Add to Favorites
+	ModsFavouriteRem: Remove from Favorites
+	ModsCancelInfo:
+		'''
+		This button cancel any mod enable/disable changes.
+		{0} Mods will be Enabled
+		{1} Mods will be Disabled
+		'''
+	ModsViewInBrowserInfo:
+		'''
+		Reveal enabled in Mod Browser.
+		But local mods are not in list.
+		Also you can share enabled mods
+		to other person for download.
+		'''
+	ClickToViewAllMods: Click to view all mods
+	MBClearSpecialFilter: Clear Filter
+	ModClipboardCopy: Copy
+	ModClipboardPaste: Paste
+	ModClipboardCopyInfo: Copy filtered mods to clipboard
+	ModClipboardPasteInfo: Set filter to mods from clipboard
+	ModClipboardCopyInfoFail: Please filter mods from ModList/ModPacks
+	MBReloadBrowser: Reload
+	MenuDownloadMods: Download Mods *
+	NoFiltersInfo: No Filters
+}
+
+Mods: {
+	SmartModManagement: {
+		Configs: {
+			SmartModManagementConfig: {
+				DisplayName: Config
+
+				Favourites: {
+					Label: Favourites
+					Tooltip: ""
+				}
+
+				DoNotDisableByGlobalButton: {
+					Label: Do Not Disable By Global Button
+					Tooltip: ""
+				}
+
+				FavouriteMods: {
+					Label: Favourite Mods
+					Tooltip: ""
+				}
+			}
+		}
+	}
+}
