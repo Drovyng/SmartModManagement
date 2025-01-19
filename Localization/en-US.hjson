@@ -28,7 +28,7 @@ tModLoader: {
 	ModsViewInBrowserInfo:
 		'''
 		Reveal enabled in Mod Browser.
-		But local mods are not in list.
+		Local mods are not in list.
 		Also you can share enabled mods
 		to other person for download.
 		'''
@@ -42,6 +42,22 @@ tModLoader: {
 	MBReloadBrowser: Reload
 	MenuDownloadMods: Download Mods *
 	NoFiltersInfo: No Filters
+	ModsViewInBrowser: In Browser
+	ModsSortRecently:
+		'''
+		Sort by recently changed
+		Favourites are still on the top.
+		'''
+	ModsSortNamesAlph:
+		'''
+		Sort mod names alphabetically
+		Favourites are still on the top.
+		'''
+	ModsSortNamesReverseAlph:
+		'''
+		Sort mod names reverse-alphabetically
+		Favourites are still on the top.
+		'''
 }
 
 Mods: {

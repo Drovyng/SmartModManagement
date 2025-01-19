@@ -579,6 +579,13 @@ namespace SmartModManagement
                     }
                 };
                 self.Recalculate();
+
+                var l = Interface.modBrowser.SpecialModPackFilter;
+                Interface.modBrowser.SpecialModPackFilter = null;
+                Interface.modBrowser._firstLoad = false;
+                Interface.modBrowser.SpecialModPackFilter = l;
+                Interface.modBrowser.SetHeading(Language.GetText("tModLoader.MenuModBrowser"));
+                Interface.modBrowser.ModList.SetEnumerable(Interface.modBrowser.SocialBackend.QueryBrowser(Interface.modBrowser.FilterParameters));
             }
         }
         public class Injection_ModPacks
@@ -962,34 +969,13 @@ namespace SmartModManagement
                     icon.IgnoresMouseInteraction = true;
                     buttonBack.PaddingLeft = 40;
                     buttonBack.UseInnerDimensions = true;
-                    buttonBack.Width.Percent = 1f / 3f;
+                    buttonBack.Width.Percent = 0.25f;
                     buttonBack.Append(icon);
                 }
                 {
                     var search = ((UIMods)self).filterTextBox.Parent;
                     search.Width.Pixels += 150;
-                    search.Left.Pixels -= 150 + 30;
-                    ((UIMods)self).SearchFilterToggle.Left.Pixels -= 30;
-                }
-                {
-                    var viewModBrowser = new UIImage(TextureAssets.Cursors[2])
-                    {
-                        Left =
-                        {
-                            Pixels = 550f + (UseConciseModList ? 20 : 0)
-                        },
-                        Width = { Pixels = 32f},
-                        Height = { Pixels = 32f},
-                        ScaleToFit = true,
-                        OverrideSamplerState = SamplerState.PointClamp
-                    };
-                    viewModBrowser.OnMouseOver += (evt, elem) =>
-                    {
-                        SoundEngine.PlaySound(in SoundID.MenuTick);
-                    };
-                    viewModBrowser.OnLeftClick += ViewEnabledMods;
-                    viewModBrowser.Append(new UIButtonDesc("tModLoader.ModsViewInBrowserInfo", 0));
-                    ((UIMods)self).SearchFilterToggle.Parent.Append(viewModBrowser);
+                    search.Left.Pixels -= 150;
                 }
                 var buttonFolder = buttonOMF.GetValue(self) as UIAutoScaleTextTextPanel<LocalizedText>;
                 {
@@ -1003,10 +989,34 @@ namespace SmartModManagement
                     icon.IgnoresMouseInteraction = true;
                     buttonFolder.PaddingLeft = 40;
                     buttonFolder.UseInnerDimensions = true;
-                    buttonFolder.Width.Percent = 1f / 3f;
-                    buttonFolder.Left.Percent = 1f / 3f;
+                    buttonFolder.Width.Percent = 0.25f;
+                    buttonFolder.Left.Percent = 0.25f;
                     buttonFolder.HAlign = 0;
                     buttonFolder.Append(icon);
+                }
+                var viewModBrowser = new UIAutoScaleTextTextPanel<LocalizedText>(Language.GetText("tModLoader.ModsViewInBrowser"));
+                {
+                    var icon = new UIImage(TextureAssets.Cursors[2]);
+                    icon.VAlign = 0.5f;
+                    icon.Width.Pixels = icon.Height.Pixels = 28;
+                    icon.Left.Set(-34, 0);
+                    icon.ScaleToFit = true;
+                    icon.OverrideSamplerState = SamplerState.PointClamp;
+                    icon.IgnoresMouseInteraction = true;
+                    viewModBrowser.PaddingLeft = 40;
+                    viewModBrowser.UseInnerDimensions = true;
+                    viewModBrowser.Width.Set(-10, 0.25f);
+                    viewModBrowser.Left.Percent = 0.75f;
+                    viewModBrowser.Top = buttonFolder.Top;
+                    viewModBrowser.Height = buttonFolder.Height;
+                    viewModBrowser.HAlign = 0;
+                    viewModBrowser.VAlign = 1;
+                    viewModBrowser.PaddingTop = viewModBrowser.PaddingBottom = 1;
+                    viewModBrowser.WithFadedMouseOver();
+                    viewModBrowser.OnLeftClick += ViewEnabledMods;
+                    viewModBrowser.Append(icon);
+                    viewModBrowser.Append(new UIButtonDesc("tModLoader.ModsViewInBrowserInfo", 0));
+                    buttonFolder.Parent.Append(viewModBrowser);
                 }
                 var buttonReload = buttonRM.GetValue(self) as UIAutoScaleTextTextPanel<LocalizedText>;
                 {
@@ -1103,8 +1113,8 @@ namespace SmartModManagement
                     icon.IgnoresMouseInteraction = true;
                     buttonCancel.PaddingLeft = 40;
                     buttonCancel.UseInnerDimensions = true;
-                    buttonCancel.Width.Set(-10, 1f / 3f);
-                    buttonCancel.Left.Percent = 2f / 3f;
+                    buttonCancel.Width.Set(-10, 0.25f);
+                    buttonCancel.Left.Percent = 0.5f;
                     buttonCancel.VAlign = 1;
                     buttonCancel.HAlign = 0;
                     buttonCancel.Top.Set(-20, 0);
@@ -1140,7 +1150,7 @@ namespace SmartModManagement
                 uIText.IgnoresMouseInteraction = true;
                 uIText.Recalculate();
                 uIPanel.Append(uIText);
-                uIPanel.Height.Set(uIText.MinHeight.Pixels, 0f);
+                uIPanel.Height.Set(80, 0f);
                 uIPanel.OnLeftClick += (evt, elem) =>
                 {
                     Interface.modsMenu.updateNeeded = true;
@@ -1176,7 +1186,7 @@ namespace SmartModManagement
                 uIText.IgnoresMouseInteraction = true;
                 uIText.Recalculate();
                 uIPanel.Append(uIText);
-                uIPanel.Height.Set(uIText.MinHeight.Pixels, 0f);
+                uIPanel.Height.Set(80, 0f);
                 uIPanel.OnLeftClick += (evt, elem) =>
                 {
                     Interface.modsMenu.updateNeeded = true;
@@ -1240,19 +1250,41 @@ namespace SmartModManagement
                 if (UseConciseModList && self.GetType().Equals(UIConciseUIList))
                 {
                     bool haveChange = true;
-                    while (haveChange)
+                    int limit = 30;
+                    while (haveChange && limit-- > 0)
                     {
                         haveChange = false;
-                        for (int i = 0; i < self._items.Count - 1; i++)
+                        var c = self._items.Count - 1;
+                        for (int i = 0; i < c; i++)
                         {
                             if (!self._items[i].GetType().Equals(UIConciseModItem)) continue;
+
+                            var item = self._items[i] as UIModItem;
+                            var item2 = self._items[i + 1] as UIModItem;
                             bool flag = !self._items[i + 1].GetType().Equals(UIConciseModItem);
-                            if (!flag) flag = !FavouriteMods().Contains((string)ModName.Invoke(self._items[i], null)) && FavouriteMods().Contains((string)ModName.Invoke(self._items[i + 1], null));
+                            if (!flag) flag = !FavouriteMods().Contains(item.ModName) && FavouriteMods().Contains(item2.ModName);
                             if (flag)
                             {
                                 var prev = self._items[i];
                                 self._items[i] = self._items[i + 1];
                                 self._items[i + 1] = prev;
+                                haveChange = true;
+                                continue;
+                            }
+                            if (FavouriteMods().Contains(item.ModName)) continue;
+                            string displayNameClean = item.DisplayNameClean;
+                            string displayNameClean2 = item2.DisplayNameClean;
+                            var ind = Interface.modsMenu.sortMode switch
+                            {
+                                ModsMenuSortMode.RecentlyUpdated => -1 * item._mod.lastModified.CompareTo(item2._mod.lastModified),
+                                ModsMenuSortMode.DisplayNameAtoZ => string.Compare(displayNameClean, displayNameClean2, StringComparison.Ordinal),
+                                ModsMenuSortMode.DisplayNameZtoA => -1 * string.Compare(displayNameClean, displayNameClean2, StringComparison.Ordinal),
+                                _ => 0,
+                            };
+                            if (ind > 0)
+                            {
+                                self._items[i] = self._items[i + 1];
+                                self._items[i + 1] = item;
                                 haveChange = true;
                             }
                         }

@@ -3,7 +3,7 @@ This mod reworks a lot of TML ui stuff about mods.
 Please write about bugs!!!
 
 Supports 'Compact Mods'
-Supports 'Concise Mod List'
+Supports 'Concise Mod List' (and fixing sorting)
 
 What it changes:
 - Redesigned every button in ModList & ModPacksList & ModBrowser

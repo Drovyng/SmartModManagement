@@ -1,2 +1,3 @@
-Updated description.
-Published to github.
+Fixed [Concise Mod List] sorting.
+Fixed Mod Browser filter buttons.
+Moved [Reveal In Browser] button.

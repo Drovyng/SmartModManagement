@@ -3,7 +3,7 @@
 Please write about bugs!!!
 
 Supports [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3388949976]Compact Mods[/url]
-Supports [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3001692619]Concise Mod List[/url]
+Supports [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3001692619]Concise Mod List[/url] (and fixing sorting)
 
 [h2]What it changes: [/h2]
 - Redesigned every button in ModList & ModPacksList & ModBrowser
