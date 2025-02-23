@@ -352,6 +352,10 @@ namespace SmartModManagement
                         {
                             UICommon.TooltipMouseText(Language.GetTextValue("tModLoader.ModClipboardPasteInfo"));
                         }
+                        else if (index == 2)
+                        {
+                            UICommon.TooltipMouseText(Language.GetTextValue("tModLoader.EnableOnlyThisListInfo"));
+                        }
                     }
                 }
             }
@@ -577,6 +581,47 @@ namespace SmartModManagement
                     {
                         SoundEngine.PlaySound(11);
                     }
+                };
+                var buttonToggle = new UITextPanel<LocalizedText>(Language.GetText("tModLoader.ModPackEnableOnlyThisList"));
+                {
+                    var icon = new UIImage(AssetButtonReloadIcon);
+                    icon.VAlign = 0.5f;
+                    icon.Width.Pixels = icon.Height.Pixels = 28;
+                    icon.Left.Set(-34, 0);
+                    icon.ScaleToFit = true;
+                    icon.OverrideSamplerState = SamplerState.PointClamp;
+                    icon.IgnoresMouseInteraction = true;
+                    buttonToggle.PaddingLeft = 40;
+
+                    var dim = buttonBack.Parent.GetOuterDimensions();
+
+                    buttonToggle.Width.Set(dim.Width * 0.275f - 10, 0);
+
+                    buttonToggle.Left.Set(dim.X + dim.Width, 0);
+                    buttonToggle.Top.Set(dim.Y + dim.Height - 20f - buttonBack.Height.Pixels, 0);
+                    buttonToggle.Height = buttonBack.Height;
+                    buttonToggle.Append(icon);
+                    buttonToggle.HAlign = 0;
+                    buttonToggle.VAlign = 0;
+                    buttonToggle.PaddingTop = 3;
+                    buttonCopy.PaddingBottom = 1;
+                }
+                buttonBack.Parent.Parent.Append(buttonToggle);
+                Rework(buttonToggle, 2).OnLeftClick += delegate
+                {
+                    if (Interface.modBrowser.SpecialModPackFilter == null) return;
+                    var l = Interface.modBrowser.ModList.ReceivedItems;
+                    var names = new List<string>();
+                    ModLoader.EnabledMods.Clear();
+                    if (l != null)
+                    {
+                        foreach (var item in l)
+                        {
+                            ModLoader.EnabledMods.Add(item.ModDownload.ModName);
+                        }
+                    }
+                    ModOrganizer.SaveEnabledMods();
+                    ModLoader.Reload();
                 };
                 self.Recalculate();
 

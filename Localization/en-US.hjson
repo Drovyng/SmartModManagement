@@ -12,6 +12,7 @@ tModLoader: {
 	ModPackEnableThisList: Enable
 	ModPackEnableOnlyThisList: Toggle
 	ModPackUpdateListWithEnabled: Update
+	EnableOnlyThisListInfo: Enable only this mods
 	InstallPackLocal: Import
 	RemovePackLocal: Remove
 	ModPacksSaveEnabledAsNewPack: Create From Enabled
@@ -36,7 +37,11 @@ tModLoader: {
 	MBClearSpecialFilter: Clear Filter
 	ModClipboardCopy: Copy
 	ModClipboardPaste: Paste
-	ModClipboardCopyInfo: Copy filtered mods to clipboard
+	ModClipboardCopyInfo:
+		'''
+		Copy filtered mods to clipboard
+		Please copy some normal text before
+		'''
 	ModClipboardPasteInfo: Set filter to mods from clipboard
 	ModClipboardCopyInfoFail: Please filter mods from ModList/ModPacks
 	MBReloadBrowser: Reload

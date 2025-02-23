@@ -12,6 +12,7 @@ tModLoader: {
 	ModPackEnableThisList: Включить
 	ModPackEnableOnlyThisList: Переключить
 	ModPackUpdateListWithEnabled: Обновить
+	// EnableOnlyThisListInfo: Enable only this mods
 	InstallPackLocal: Импорт
 	RemovePackLocal: Убрать
 	ModPacksSaveEnabledAsNewPack: Создать Из Включённых
@@ -36,7 +37,12 @@ tModLoader: {
 	MBClearSpecialFilter: Очистить фильтры
 	// ModClipboardCopy: Copy
 	// ModClipboardPaste: Paste
-	ModClipboardCopyInfo: Загружает отфилтрованные модификации в буфер обмена
+	ModClipboardCopyInfo:
+		'''
+		Загружает отфилтрованные модификации в буфер обмена
+		Пожалуйста скопируйте немного оычного текста перед этим
+		EnableOnlyThisListInfo: Включает только эти модификиции
+		'''
 	ModClipboardPasteInfo: Устанавливает в фильтр модификации из буфера обмена
 	ModClipboardCopyInfoFail: Пожалуйста сперва отфильтруйте моды в СпискеМодов/Модпаках
 	MBReloadBrowser: Перезагрузить

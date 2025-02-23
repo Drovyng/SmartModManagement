@@ -1,3 +1,1 @@
-Fixed [Concise Mod List] sorting.
-Fixed Mod Browser filter buttons.
-Moved [Reveal In Browser] button.
+You can Toggle filtered mods.
