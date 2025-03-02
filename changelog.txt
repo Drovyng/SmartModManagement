@@ -1,1 +1,2 @@
-You can Toggle filtered mods.
+Fixed update scrolling mod list up.
+Fixed update mods button in browser.

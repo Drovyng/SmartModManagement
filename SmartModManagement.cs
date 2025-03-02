@@ -7,9 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Windows.Forms;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -24,8 +22,6 @@ using Terraria.ModLoader.UI.ModBrowser;
 using Terraria.Social.Base;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using static SmartModManagement.SmartModManagement.Injection_ModBrowser;
-
 
 namespace SmartModManagement
 {
@@ -188,7 +184,7 @@ namespace SmartModManagement
                     if (fav.Contains(mod)) fav.Remove(mod);
                     else fav.Add(mod);
                     SaveConfig.Invoke(null, [ModContent.GetInstance<SmartModManagementConfig>()]);
-                    Injection_ModList.updateNeeded.SetValue(Parent.Parent.Parent.Parent.Parent.Parent, true); 
+                    Interface.modsMenu.updateNeeded = true;
                 }
             }
             public static void Activate(On_UIElement.orig_Activate orig, UIElement self)
@@ -604,7 +600,7 @@ namespace SmartModManagement
                     buttonToggle.HAlign = 0;
                     buttonToggle.VAlign = 0;
                     buttonToggle.PaddingTop = 3;
-                    buttonCopy.PaddingBottom = 1;
+                    buttonToggle.PaddingBottom = 1;
                 }
                 buttonBack.Parent.Parent.Append(buttonToggle);
                 Rework(buttonToggle, 2).OnLeftClick += delegate
@@ -624,6 +620,41 @@ namespace SmartModManagement
                     ModLoader.Reload();
                 };
                 self.Recalculate();
+
+                bws._updateAllButton = Rework(bws._updateAllButton);
+                var buttonUpdate = bws._updateAllButton;
+                {
+                    var icon = new UIImage(AssetButtonDownloadIcon);
+                    icon.VAlign = 0.5f;
+                    icon.Width.Pixels = 28;
+                    icon.Height.Pixels = 32;
+                    icon.Left.Set(-34, 0);
+                    icon.ScaleToFit = true;
+                    icon.OverrideSamplerState = SamplerState.PointClamp;
+                    icon.IgnoresMouseInteraction = true;
+                    buttonUpdate.PaddingLeft = 40;
+
+
+                    buttonUpdate.Left = buttonToggle.Left;
+                    buttonUpdate.Top = buttonToggle.Top;
+                    buttonUpdate.Top.Pixels -= 45;
+                    buttonUpdate.Width = buttonToggle.Width;
+                    buttonUpdate.Height = buttonToggle.Height;
+
+                    buttonUpdate.Append(icon);
+                    buttonUpdate.HAlign = 0;
+                    buttonUpdate.VAlign = 0;
+                    buttonUpdate.PaddingTop = 3;
+                    buttonUpdate.PaddingBottom = 1;
+                    buttonUpdate.OnLeftClick += bws.UpdateAllMods;
+                    if (buttonUpdate.Parent == null)
+                    {
+                        buttonUpdate.Parent = buttonBack.Parent;
+                        buttonUpdate.Recalculate();
+                        buttonUpdate.Draw(spriteBatch);
+                        buttonUpdate.Parent = null;
+                    }
+                }
 
                 var l = Interface.modBrowser.SpecialModPackFilter;
                 Interface.modBrowser.SpecialModPackFilter = null;
@@ -984,6 +1015,8 @@ namespace SmartModManagement
                 if (!self.GetType().Equals(UIMods)) return;
                 var _ramUsage = ramUsage.GetValue(self) as UIElement;
 
+                self.OnUpdate += OnUpdate;
+
                 var list = modList.GetValue(self) as UIList;
 
                 list.ManualSortMethod = (l) => l.Sort(Compare);
@@ -1171,6 +1204,12 @@ namespace SmartModManagement
 
                 self.Recalculate();
             }
+
+            private static void OnUpdate(UIElement affectedElement)
+            {
+                Interface.modsMenu.modListViewPosition = Interface.modsMenu.uIScrollbar.ViewPosition;
+            }
+
             public static void ViewTranslateMods(UIMouseEvent evt, UIElement listeningElement)
             {
                 var item = listeningElement.Parent as UIModItem;

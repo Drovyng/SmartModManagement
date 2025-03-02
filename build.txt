@@ -1,5 +1,5 @@
 displayName = Smart Mod Management (For TML)
 author = Drovyng
-version = 0.9.5
+version = 1.0.0
 side = Client
 homepage = https://github.com/Drovyng/SmartModManagement
